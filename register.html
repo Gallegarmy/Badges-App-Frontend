@@ -1,0 +1,21 @@
+<script src="app.js"></script>
+<h2>Register</h2>
+<input id="email" placeholder="email">
+<input id="username" placeholder="username">
+<input id="password" type="password" placeholder="password">
+<button onclick="register()">Register</button>
+
+<script>
+async function register() {
+  await fetch(API + "/auth/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: email.value,
+      username: username.value,
+      password: password.value
+    })
+  });
+  location.href = "login.html";
+}
+</script>

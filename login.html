@@ -1,0 +1,25 @@
+<script src="app.js"></script>
+<h2>Login</h2>
+<input id="email" placeholder="email">
+<input id="password" type="password">
+<button onclick="login()">Login</button>
+
+<script>
+async function login() {
+  const res = await fetch(API + "/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    alert(data.error || "Login failed");
+    return;
+  }
+  saveToken(data.token);
+  location.href = "profile.html";
+}
+</script>

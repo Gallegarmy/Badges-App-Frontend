@@ -1,0 +1,35 @@
+<script src="app.js"></script>
+<h2>My Badges</h2>
+<div id="badges"></div>
+
+<script>
+async function loadBadges() {
+  const token = getToken();
+  if (!token) {
+    document.getElementById("badges").textContent = "Please log in first.";
+    return;
+  }
+  const res = await fetch(API + "/my-badges", {
+    headers: { Authorization: "Bearer " + token }
+  });
+  if (!res.ok) {
+    document.getElementById("badges").textContent =
+      "Could not load badges. Please log in again.";
+    return;
+  }
+  const badges = await res.json();
+
+  if (!badges.length) {
+    document.getElementById("badges").textContent = "No badges yet.";
+    return;
+  }
+  badges.forEach(b => {
+    const img = document.createElement("img");
+    img.src = b.image_url;
+    img.className = "badge";
+    document.getElementById("badges").appendChild(img);
+  });
+}
+
+loadBadges();
+</script>
