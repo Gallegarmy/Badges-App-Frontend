@@ -1,9 +1,19 @@
 <script src="app.js"></script>
-<h2>Register</h2>
-<input id="email" placeholder="email">
-<input id="username" placeholder="username">
-<input id="password" type="password" placeholder="password">
-<button onclick="register()">Register</button>
+<link rel="stylesheet" href="./styles/registerstyle.css"> 
+
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Register</h2>
+        </div>
+        <div class="input-container">
+            <input id="email" placeholder="email">
+            <input id="username" placeholder="username">
+            <input id="password" type="password" placeholder="password">
+            <div class="botton">
+                <button onclick="register()" class="submit" type="submit">Enviar</button>
+            </div>
+        </div>
 
 <script>
 async function register() {

@@ -1,6 +1,12 @@
 <script src="app.js"></script>
-<h2>My Badges</h2>
+
+<div class="form-header">
+  <h2>Medallas adquiridas</h2>
+</div>
 <div id="badges"></div>
+<link rel="stylesheet" href="./styles/profilestyle.css"> 
+
+<section class="hexagon-gallery" id="hexGallery"></section>
 
 <script>
 async function loadBadges() {
@@ -9,25 +15,35 @@ async function loadBadges() {
     document.getElementById("badges").textContent = "Please log in first.";
     return;
   }
+
   const res = await fetch(API + "/my-badges", {
     headers: { Authorization: "Bearer " + token }
   });
-  if (!res.ok) {
-    document.getElementById("badges").textContent =
-      "Could not load badges. Please log in again.";
-    return;
-  }
-  const badges = await res.json();
 
-  if (!badges.length) {
-    document.getElementById("badges").textContent = "No badges yet.";
-    return;
+  if (!res.ok) {
+      document.getElementById("badges").textContent =
+        "Could not load badges. Please log in again.";
+      return;
   }
+
+    const badges = await res.json();
+
+    if (!badges.length) {
+      document.getElementById("badges").textContent = "No badges yet.";
+      return;
+    }
+
+    const hexGallery = document.getElementById("hexGallery");
+
   badges.forEach(b => {
-    const img = document.createElement("img");
-    img.src = b.image_url;
-    img.className = "badge";
-    document.getElementById("badges").appendChild(img);
+      const hex = document.createElement("div");
+      hex.className = "hex";
+
+      const img = document.createElement("img");
+      img.src = b.image_url;
+      img.alt = b.name || "badge";
+      hex.appendChild(img);
+      hexGallery.appendChild(hex);
   });
 }
 

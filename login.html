@@ -1,9 +1,22 @@
 <script src="app.js"></script>
-<h2>Login</h2>
-<input id="email" placeholder="email">
-<input id="password" type="password">
-<button onclick="login()">Login</button>
+<link rel="stylesheet" href="./styles/style.css"> 
 
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Log in</h2>
+        </div>
+        <div class="input-container">
+          <input id="email" placeholder="email">
+          <input id="password" type="password" placeholder="password">
+          <div class="botton">
+            <button onclick="login()" class="submit" type="submit">Entrar</button>
+          </div>
+        </div>
+    </div>
+
+
+</body>
 <script>
 async function login() {
   const res = await fetch(API + "/auth/login", {
