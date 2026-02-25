@@ -12,10 +12,13 @@ function saveToken(token) {
 function getToken() {
   const itemStr = localStorage.getItem("token");
   const item = JSON.parse(itemStr)
+  if (item === null) {
+    return null;
+  }
 	const now = new Date()
   if (now.getTime() > item.expiry) {
-		localStorage.removeItem("token")
-		return null
+		localStorage.removeItem("token");
+		return null;
 	}
-  return item.value();
+  return item.token;
 }
