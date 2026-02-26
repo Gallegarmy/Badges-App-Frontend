@@ -46,7 +46,7 @@ jobs:
 
             echo "▶️ Running new container"
             docker run -d \
-              --name contest-app \
+              --name badge-frontend \
               -p 4000:4000 \
               --restart unless-stopped \
               badge-frontend:latest
