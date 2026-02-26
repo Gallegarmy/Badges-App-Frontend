@@ -29,5 +29,5 @@ Este é un proxecto creado co obxectivo de fomentar a asistencia recorrente a ev
 ---
 
 <p align="center">
-  Feito con ❤️ para as comunidades galegas
+  Feito con ❤️ para as comunidades galegas por Sysarmy Galicia
 </p>
