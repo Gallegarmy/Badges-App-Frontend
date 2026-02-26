@@ -1,0 +1,55 @@
+name: Deploy contest-app to VPS
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Build and deploy on VPS
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
+            set -e
+
+            echo "🚀 Deploying contest-app..."
+
+            cd /root/badge-app/Badges-App-Frontend
+
+            echo "📥 Pulling latest code"
+            git pull origin main
+
+            echo "🐳 Building Docker image"
+            docker build --no-cache \
+              --build-arg NPM_TOKEN=$NPM_TOKEN \
+              -t badge-frontend:latest .
+
+            echo "🛑 Stopping old container (if exists)"
+            docker stop badge-frontend || true
+            docker rm badge-frontend || true
+
+            echo "▶️ Running new container"
+            docker run -d \
+              --name contest-app \
+              -p 4000:4000 \
+              --restart unless-stopped \
+              badge-frontend:latest
+
+            echo "✅ Deployment successful"
+          EOF
