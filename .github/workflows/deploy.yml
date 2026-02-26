@@ -1,4 +1,4 @@
-name: Deploy contest-app to VPS
+name: Deploy badge-frontend to VPS
 
 on:
   pull_request:
