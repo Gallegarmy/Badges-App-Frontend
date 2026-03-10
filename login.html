@@ -7,9 +7,12 @@
             <h2>Log in</h2>
         </div>
         <div class="input-container">
-          <input id="email" placeholder="email">
-          <input id="password" type="password" placeholder="password">
-          <div class="botton">
+          <input id="email" placeholder="email" type="email">
+          <input id="password" type="password" placeholder="password" type="password">
+          <p>
+            <a href="#" onclick="forgotPassword()">¿Olvidaste tu contraseña?</a>
+          </p>
+          <div class="button">
             <button onclick="login()" class="submit" type="submit">Entrar</button>
           </div>
         </div>
@@ -34,5 +37,27 @@ async function login() {
   }
   saveToken(data.token);
   location.href = "profile.html";
+}
+
+async function forgotPassword() {
+
+  const emailValue = document.getElementById("email").value;
+
+  if (!emailValue) {
+    alert("Enter your email first");
+    return;
+  }
+
+  const res = await fetch(API + "/auth/forgot-password", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      email: emailValue
+    })
+  });
+
+  if (res.ok) {
+    alert("If the email exists, a reset link was sent.");
+  }
 }
 </script>
