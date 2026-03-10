@@ -1,63 +1,35 @@
-<script src="app.js"></script>
-<link rel="stylesheet" href="./styles/style.css"> 
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - Badges App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="app.js" defer></script>
+    <script src="login.js" defer></script>
+</head>
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h2>Log in</h2>
+            <div class="badge-icon" aria-hidden="true"></div>
+            <h2>Iniciar sesión</h2>
         </div>
-        <div class="input-container">
-          <input id="email" placeholder="email" type="email">
-          <input id="password" type="password" placeholder="password" type="password">
-          <p>
-            <a href="#" onclick="forgotPassword()">¿Olvidaste tu contraseña?</a>
-          </p>
-          <div class="button">
-            <button onclick="login()" class="submit" type="submit">Entrar</button>
-          </div>
-        </div>
+        <form class="input-container" id="login-form" novalidate>
+            <label for="email">Correo electrónico</label>
+            <input id="email" type="email" placeholder="Introduce tu correo electrónico" autocomplete="email" required>
+
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" placeholder="Introduce tu contraseña" autocomplete="current-password" required>
+
+            <p class="forgot-password"><a href="#" id="forgot-link">¿Olvidaste tu contraseña?</a></p>
+
+            <p id="login-error" class="error-message" role="alert" hidden></p>
+            <button class="submit" type="submit">Entrar</button>
+        </form>
+        <p class="form-footer">¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
     </div>
-
-
 </body>
-<script>
-async function login() {
-  const res = await fetch(API + "/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value
-    })
-  });
-  const data = await res.json();
-  if (!res.ok) {
-    alert(data.error || "Login failed");
-    return;
-  }
-  saveToken(data.token);
-  location.href = "profile.html";
-}
-
-async function forgotPassword() {
-
-  const emailValue = document.getElementById("email").value;
-
-  if (!emailValue) {
-    alert("Enter your email first");
-    return;
-  }
-
-  const res = await fetch(API + "/auth/forgot-password", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      email: emailValue
-    })
-  });
-
-  if (res.ok) {
-    alert("If the email exists, a reset link was sent.");
-  }
-}
-</script>
+</html>
