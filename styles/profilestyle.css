@@ -5,12 +5,12 @@
 }
 
 :root {
-    --bg:        #080E1D;
-    --accent:    #00B8D9;
+    --bg:        #0C1525;
+    --accent:    #2276D2;
     --text:      #D8EEF5;
     --text-muted:#4E6A7A;
     --hex-bg:    #0F1A2E;
-    --hex-border:rgba(0, 184, 217, 0.2);
+    --hex-border:rgba(255, 255, 255, 0.15);
 }
 
 body {
@@ -21,8 +21,8 @@ body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg);
     background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(0, 153, 204, 0.08) 0%, transparent 50%),
-        radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        radial-gradient(ellipse at 50% 0%, rgba(34, 118, 210, 0.08) 0%, transparent 50%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
     background-size: 100%, 28px 28px;
 }
 
@@ -31,7 +31,7 @@ body {
     width: 100%;
     padding: 28px 40px;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 184, 217, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .page-header h1 {
