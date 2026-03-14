@@ -37,7 +37,6 @@ jobs:
 
             echo "🐳 Building Docker image"
             docker build --no-cache \
-              --build-arg NPM_TOKEN=$NPM_TOKEN \
               -t badge-frontend:latest .
 
             echo "🛑 Stopping old container (if exists)"
