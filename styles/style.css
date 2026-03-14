@@ -1,83 +1,223 @@
-body{
-    height:100vh;
-    display: flex;
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-    background-size: cover;
+}
+
+:root {
+    --bg:           #0C1525;
+    --card-bg:      rgba(12, 21, 38, 0.92);
+    --accent:       #2276D2;
+    --accent-hover: #3B8FD8;
+    --accent-dim:   rgba(34, 118, 210, 0.15);
+    --accent-glow:  rgba(34, 118, 210, 0.4);
+    --text:         #D8EEF5;
+    --text-muted:   #4E6A7A;
+    --input-bg:     rgba(255, 255, 255, 0.04);
+    --input-border: rgba(255, 255, 255, 0.08);
+    --error:        #FF6B6B;
+    --radius-card:  20px;
+    --radius-input: 12px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #0099CC;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 50% 40%, rgba(34, 118, 210, 0.09) 0%, transparent 60%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 100%, 28px 28px;
 }
 
+/* ── Card ─────────────────────────────────── */
 .form-container {
-    max-width:320px;
     width: 100%;
-    padding: 40px;
-    box-shadow: 0 0 10px black;
-    background: transparent;
-    border-radius: 30px;
-    text-align: center;
-    backdrop-filter: blur(20px);
-    background-color: white;
+    max-width: 380px;
+    padding: 48px 40px;
+    background: var(--card-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-card);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.11);
 }
 
+
+/* ── Header ───────────────────────────────── */
 .form-header {
     text-align: center;
-    margin-bottom: 25px;
-    width: bold;
-    font-size: 1rem;
-    text-transform: uppercase;
-    color: black;
+    margin-bottom: 32px;
 }
 
+.form-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    line-height: 1;
+}
+
+/* ── Form & inputs ────────────────────────── */
 .input-container {
-    position: relative;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    margin-top: 18px;
+}
+
+.input-container label:first-child {
+    margin-top: 0;
 }
 
 .input-container input {
-    padding:15px 20px ;
     width: 100%;
-    border-radius: 30px;
-    border: 0px solid white;
-    box-shadow: 0 0 5px black;
-    margin-bottom: 20px;
-    background: transparent;
-    font-size: 1rem;
+    padding: 13px 16px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-input);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
     outline: none;
-    color: black;
-}
-
-.input-container input:hover{
-    border: 2px solid rgba(0, 0, 0, 0.304);
-}
-
-input, button {
-  display: block;
-  margin: 10px 0;
-  padding: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 input::placeholder {
-    color: gray;
-    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-size: 0.88rem;
 }
 
+.input-container input:hover {
+    border-color: rgba(34, 118, 210, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.input-container input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+    background: rgba(34, 118, 210, 0.04);
+}
+
+/* ── Forgot password ──────────────────────── */
+.forgot-password {
+    text-align: right;
+    margin-top: 14px;
+    font-size: 0.95rem;
+}
+
+/* ── Shared link styles ───────────────────── */
+.forgot-password a,
+.form-footer a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.15s;
+}
+
+.forgot-password a:hover,
+.form-footer a:hover {
+    opacity: 0.75;
+}
+
+.forgot-password a:focus-visible,
+.form-footer a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* ── Error message ────────────────────────── */
+.error-message {
+    color: var(--error);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(255, 107, 107, 0.08);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* ── Submit button ────────────────────────── */
 .submit {
     width: 100%;
-    padding: 15px;
-    border-radius: 20px;
-    border: 0px solid ;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.804); 
-    margin-bottom: 20px;
-    font-family: sans-serif;
-    font-weight: 900;
-    background: lightgray;
+    padding: 14px;
+    margin-top: 28px;
+    border: none;
+    border-radius: var(--radius-input);
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 4px 20px rgba(34, 118, 210, 0.3);
+}
+
+.submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    transition: left 0.4s ease;
 }
 
 .submit:hover {
-    box-shadow: 0 0 9px rgba(255, 255, 255, 0.662);
+    background: var(--accent-hover);
+    box-shadow: 0 6px 28px rgba(34, 118, 210, 0.5);
+    transform: translateY(-1px);
 }
 
+.submit:hover::before {
+    left: 100%;
+}
+
+.submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(34, 118, 210, 0.25);
+}
+
+.submit:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+    border-radius: var(--radius-input);
+}
+
+/* ── Register link ────────────────────────── */
+.form-footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.form-footer a {
+    font-weight: 600;
+}
