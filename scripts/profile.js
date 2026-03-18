@@ -1,22 +1,12 @@
 let loadedBadges = [];
 
-function getHoneycombConfig(galleryWidth, badgeCount) {
+function getHoneycombConfig(galleryWidth) {
   const hexGap = galleryWidth <= 520 ? 10 : 14;
-  const minHexWidth = galleryWidth <= 520 ? 92 : 108;
+  const minHexWidth = galleryWidth <= 520 ? 72 : 100;
   const maxHexWidth = galleryWidth <= 520 ? 150 : 200;
 
-  const maxCapacityByWidth = Math.max(
-    2,
-    Math.floor((galleryWidth + hexGap) / (minHexWidth + hexGap))
-  );
-
-  const desiredByCount = Math.max(2, Math.ceil(Math.sqrt(Math.max(1, badgeCount) * 0.9)));
-  const hardCap = galleryWidth <= 520 ? 3 : galleryWidth <= 760 ? 4 : galleryWidth <= 1100 ? 6 : 7;
-
-  const longRowCapacity = Math.max(
-    2,
-    Math.min(maxCapacityByWidth, desiredByCount, hardCap)
-  );
+  // Start with 4/3 and reduce columns on narrow displays.
+  const longRowCapacity = galleryWidth <= 420 ? 2 : galleryWidth <= 760 ? 3 : 4;
 
   const totalGap = hexGap * (longRowCapacity - 1);
   const maxHexWidthByColumns = Math.floor((galleryWidth - totalGap) / longRowCapacity);
@@ -49,7 +39,7 @@ function renderHoneycombBadges() {
     return;
   }
 
-  const config = getHoneycombConfig(gallery.clientWidth || window.innerWidth, loadedBadges.length);
+  const config = getHoneycombConfig(gallery.clientWidth || window.innerWidth);
   gallery.style.setProperty("--hex-width", `${config.hexWidth}px`);
   gallery.style.setProperty("--hex-height", `${config.hexHeight}px`);
   gallery.style.setProperty("--hex-gap", `${config.hexGap}px`);
@@ -115,7 +105,7 @@ async function loadBadges() {
 
     loadedBadges = await res.json();
 
-    if (!badges.length) {
+    if (!loadedBadges.length) {
       statusEl.textContent = "Aún no tienes medallas.";
       statusEl.hidden = false;
       return;
