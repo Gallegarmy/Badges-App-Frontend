@@ -164,13 +164,13 @@ async function loadBadges() {
   }
 
   try {
-    const res = await fetch(API + "/my-badges", {
-      headers: { Authorization: "Bearer " + token },
+    const res = await fetch(`${API}/my-badges`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!res.ok) {
       statusEl.textContent =
-        "No se pudieron cargar las medallas. Por favor, inicia sesion de nuevo.";
+        "No se pudieron cargar tus medallas. Por favor, inténtalo de nuevo.";
       statusEl.hidden = false;
       return;
     }
@@ -178,7 +178,7 @@ async function loadBadges() {
     const badges = await res.json();
 
     if (!badges.length) {
-      statusEl.textContent = "Aun no tienes medallas.";
+      statusEl.textContent = "Aún no tienes medallas.";
       statusEl.hidden = false;
       return;
     }
