@@ -6,15 +6,17 @@
 
 :root {
     --bg:        #0C1525;
+    --accent:    #2276D2;
     --text:      #D8EEF5;
     --text-muted:#4E6A7A;
     --hex-bg:    #0F1A2E;
 
-    /* Control size here */
+    /* size control */
     --hex-width: 140px;
     --hex-gap: 6px;
 }
 
+/* ── Body ───────────────── */
 body {
     min-height: 100vh;
     display: flex;
@@ -22,12 +24,16 @@ body {
     align-items: center;
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(34,118,210,0.08) 0%, transparent 50%),
+        radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 100%, 28px 28px;
 }
 
-/* ── Header ───────────────── */
+/* ── Header ─────────────── */
 .page-header {
     width: 100%;
-    padding: 18px 10px;
+    padding: 16px 10px;
     text-align: center;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
@@ -43,7 +49,7 @@ body {
 main {
     width: 100%;
     max-width: 1200px;
-    padding: 20px 10px 40px;
+    padding: 20px 10px 30px;
 }
 
 /* ── Status ─────────────── */
@@ -58,7 +64,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 /* ── Hexagon ────────────── */
@@ -82,17 +88,24 @@ main {
     transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-/* Interlock magic */
+/* 🔑 Tight interlocking rows */
 .hex:nth-child(odd) {
-    transform: translateY(calc(var(--hex-width) * 0.2886));
+    margin-top: calc(var(--hex-width) * -0.2887);
 }
 
-/* Hover */
+/* reset first row */
+.hex:nth-child(-n+6) {
+    margin-top: calc(var(--hex-gap) / 2);
+}
+
+/* hover */
 .hex:hover {
-    transform: scale(1.05) translateY(calc(var(--hex-width) * 0.2886));
+    transform: scale(1.05);
     filter: brightness(1.15);
+    z-index: 2;
 }
 
+/* image */
 .hex img {
     width: 100%;
     height: 100%;
@@ -100,17 +113,14 @@ main {
     clip-path: inherit;
 }
 
-/* ── Tight vertical packing ─ */
-.hexagon-gallery::after {
-    content: "";
-    width: 100%;
-    height: calc(var(--hex-width) * 0.2886);
-}
-
 /* ── Tablet ─────────────── */
 @media (max-width: 900px) {
     :root {
         --hex-width: 110px;
+    }
+
+    .hex:nth-child(-n+5) {
+        margin-top: calc(var(--hex-gap) / 2);
     }
 }
 
@@ -120,11 +130,19 @@ main {
         --hex-width: 85px;
         --hex-gap: 4px;
     }
+
+    .hex:nth-child(-n+4) {
+        margin-top: calc(var(--hex-gap) / 2);
+    }
 }
 
 /* ── Small phones ───────── */
 @media (max-width: 400px) {
     :root {
         --hex-width: 70px;
+    }
+
+    .hex:nth-child(-n+3) {
+        margin-top: calc(var(--hex-gap) / 2);
     }
 }
