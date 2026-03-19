@@ -1,47 +1,51 @@
 <script src="scripts/app.js" defer></script>
-<h2>Claim Badge</h2>
+
+<h2 id="status">Claim Badge</h2>
 
 <script>
-(async () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const status = document.getElementById("status");
+
   const token = new URLSearchParams(location.search).get("token");
   const auth = getToken();
 
   function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   if (!token) {
-    document.body.innerHTML = "Missing QR token.";
-  } else if (!auth) {
-    document.body.innerHTML = "Please log in before claiming a badge.";
-  } else {
-    fetch(API + "/qr/claim", {
+    status.textContent = "Missing QR token.";
+    return;
+  }
+
+  if (!auth) {
+    status.textContent = "Please log in before claiming a badge.";
+    return;
+  }
+
+  try {
+    const res = await fetch(API + "/qr/claim", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + auth
       },
       body: JSON.stringify({ token })
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Claim failed");
-        return data;
-      })
-      .then(() => {
-        document.body.innerHTML = "Badge claimed!";
-      })
-      .catch((err) => {
-        document.body.innerHTML = err.message;
-      });
+    });
 
-      
+    const data = await res.json();
 
+    if (!res.ok) throw new Error(data.error || "Claim failed");
+
+    status.textContent = "Badge claimed!";
+
+    await sleep(3000);
+    window.location.href = "profile.html";
+
+  } catch (err) {
+    status.textContent = err.message;
   }
-  
-  await sleep(5000);
 
-  window.location.href = 'profile.html';
-
-})();
+});
 </script>
