@@ -18,31 +18,41 @@
       <h1>Canjear Medalla</h1>
     </header>
     <main>
-      <p id="status" class="status-message" role="status"></p>
+      <div class="claim-container">
+        <p id="status" class="status-message" role="status"></p>
+        <button
+          id="backToProfile"
+          class="claim-back-button"
+          type="button"
+          hidden
+        >
+          Volver a Profile
+        </button>
+      </div>
     </main>
 
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
         const status = document.getElementById("status");
+        const backButton = document.getElementById("backToProfile");
+
+        const goToProfile = () => {
+          window.location.href = "profile.html";
+        };
+
+        const showStatus = (message) => {
+          status.textContent = message;
+          status.hidden = false;
+          backButton.hidden = false;
+        };
+
+        backButton.addEventListener("click", goToProfile);
 
         const token = new URLSearchParams(location.search).get("token");
         const auth = getToken();
 
-        function sleep(ms) {
-          return new Promise((resolve) => setTimeout(resolve, ms));
-        }
-
-        if (!token) {
-          status.textContent = "Missing QR token.";
-          status.hidden = false;
-          return;
-        }
-
-        if (!auth) {
-          status.textContent = "Please log in before claiming a badge.";
-          status.hidden = false;
-          return;
-        }
+        if (!token) return showStatus("Missing QR token.");
+        if (!auth) return showStatus("Please log in before claiming a badge.");
 
         try {
           const res = await fetch(API + "/qr/claim", {
@@ -55,17 +65,13 @@
           });
 
           const data = await res.json();
-
           if (!res.ok) throw new Error(data.error || "Claim failed");
 
-          status.textContent = "Badge claimed!";
-          status.hidden = false;
-
-          await sleep(3000);
-          window.location.href = "profile.html";
+          showStatus("Badge claimed!");
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          goToProfile();
         } catch (err) {
-          status.textContent = err.message;
-          status.hidden = false;
+          showStatus(err instanceof Error ? err.message : "Unexpected error");
         }
       });
     </script>

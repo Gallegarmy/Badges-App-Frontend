@@ -219,10 +219,9 @@ async function loadPatrosBadgesStatus() {
     }
 
     if (patros === 7 && comunidades < 12) {
-      statusEl.textContent =
-        "Ya estas participando en el sorteo LareiraConf 2026, escanea todas las medallas de comunidades para duplicar tus posibilidades, actualmente tienes " +
-        comunidades +
-        "/12 medallas";
+      statusEl.textContent = `Ya estas participando en el sorteo LareiraConf 2026.
+      Escanea todas las medallas de comunidades para duplicar tus posibilidades.
+      Actualmente tienes ${comunidades}/12 medallas.`;
       statusEl.hidden = false;
       return;
     }

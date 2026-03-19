@@ -278,3 +278,58 @@ p {
 .patros-gallery .hex:nth-child(5) {
   grid-column: 2 / span 2;
 }
+
+.claim-container {
+  max-width: 520px;
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+.claim-container .status-message {
+  margin: 0 0 18px;
+}
+
+.claim-back-button {
+  width: min(100%, 280px);
+  padding: 12px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font:
+    600 0.9rem "Outfit",
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.claim-back-button:hover {
+  background: rgba(34, 118, 210, 0.18);
+  transform: translateY(-1px);
+}
+
+.claim-back-button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.lareira-status-message {
+  max-width: 760px;
+  margin: 14px auto 20px;
+  padding: 0 14px;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+@media (max-width: 600px) {
+  .lareira-status-message {
+    max-width: 100%;
+    padding: 0 10px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+}
