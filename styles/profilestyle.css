@@ -18,7 +18,7 @@
   --hex-gap: 6px;
 }
 
-/* ── Body ───────────────── */
+/* Body */
 body {
   min-height: 100vh;
   display: flex;
@@ -38,7 +38,7 @@ body {
     28px 28px;
 }
 
-/* ── Header ─────────────── */
+/* Header */
 .page-header {
   width: 100%;
   padding: 16px 10px;
@@ -53,7 +53,7 @@ body {
   color: var(--text);
 }
 
-/* ── Main ───────────────── */
+/* Main */
 main {
   width: 100%;
   max-width: 1200px;
@@ -65,30 +65,36 @@ p {
   padding: 0 10px;
 }
 
-/* ── Status ─────────────── */
+/* Status */
 .status-message {
   text-align: center;
-  color: var(--text-muted);
+  color: var(--text);
   margin-top: 20px;
 }
 
-/* ── Honeycomb container ── */
+/* Honeycomb container */
 .hexagon-gallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(12, calc(var(--hex-width) / 2));
   justify-content: center;
+  row-gap: 0;
   margin-top: 20px;
+  max-width: 1000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
-/* ── Hexagon ────────────── */
+/* Hexagon */
 .hex {
   width: var(--hex-width);
-  height: calc(var(--hex-width) * 1.1547); /* perfect hex ratio */
-  margin: calc(var(--hex-gap) / 2);
+  height: calc(var(--hex-width) * 1.1547);
   position: relative;
+  grid-column: span 2;
+  margin-top: calc(var(--hex-width) * -0.2887);
 
   background: var(--hex-bg);
-
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 
   transition:
@@ -96,14 +102,14 @@ p {
     filter 0.2s ease;
 }
 
-/* 🔑 Tight interlocking rows */
-.hex:nth-child(odd) {
-  margin-top: calc(var(--hex-width) * -0.2887);
+/* primera fila sin solape */
+.hex:nth-child(-n + 6) {
+  margin-top: 0;
 }
 
-/* reset first row */
-.hex:nth-child(-n + 6) {
-  margin-top: calc(var(--hex-gap) / 2);
+/* inicio de filas desplazadas (patron 6/5) */
+.hex:nth-child(11n + 7) {
+  grid-column: 2 / span 2;
 }
 
 /* hover */
@@ -121,36 +127,154 @@ p {
   clip-path: inherit;
 }
 
-/* ── Tablet ─────────────── */
+/* Estructura de secciones */
+.badges-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.badge-section {
+  width: 100%;
+}
+
+.badge-section-title {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+/* Otras medallas arriba */
+.single-row-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.single-row-gallery .hex {
+  margin-top: 0;
+}
+
+/* Separador LareiraConf */
+.lareiraconf-divider {
+  width: 100%;
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  font-size: 1.6rem;
+  padding: 10px 0 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-gallery {
+  margin-top: 8px;
+}
+
+/* Tablet */
 @media (max-width: 900px) {
   :root {
     --hex-width: 110px;
   }
 
+  .hexagon-gallery {
+    grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
+  }
+
   .hex:nth-child(-n + 5) {
-    margin-top: calc(var(--hex-gap) / 2);
+    margin-top: 0;
+  }
+
+  /* patron 5/4 */
+  .hex:nth-child(9n + 6) {
+    grid-column: 2 / span 2;
   }
 }
 
-/* ── Mobile ─────────────── */
+/* Mobile */
 @media (max-width: 600px) {
   :root {
     --hex-width: 85px;
     --hex-gap: 4px;
   }
 
+  .hexagon-gallery {
+    grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
+  }
+
   .hex:nth-child(-n + 4) {
-    margin-top: calc(var(--hex-gap) / 2);
+    margin-top: 0;
+  }
+
+  /* patron 4/3 */
+  .hex:nth-child(7n + 5) {
+    grid-column: 2 / span 2;
+  }
+
+  .badge-section-title {
+    font-size: 1.2rem;
+  }
+
+  .lareiraconf-divider {
+    font-size: 1.35rem;
   }
 }
 
-/* ── Small phones ───────── */
+/* Small phones */
 @media (max-width: 400px) {
   :root {
     --hex-width: 70px;
   }
 
-  .hex:nth-child(-n + 3) {
-    margin-top: calc(var(--hex-gap) / 2);
+  .hexagon-gallery {
+    grid-template-columns: repeat(6, calc(var(--hex-width) / 2));
   }
+
+  .hex:nth-child(-n + 3) {
+    margin-top: 0;
+  }
+
+  /* patron 3/2 */
+  .hex:nth-child(5n + 4) {
+    grid-column: 2 / span 2;
+  }
+
+  .badge-section-title {
+    font-size: 1.1rem;
+  }
+
+  .lareiraconf-divider {
+    font-size: 1.2rem;
+  }
+}
+
+/* Patros: 7 medallas en patron 4 + 3 (panal visible) */
+.patros-gallery {
+  grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
+  max-width: calc(var(--hex-width) * 4 + 40px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.patros-gallery .hex {
+  grid-column: span 2;
+  margin-top: calc(var(--hex-width) * -0.2887);
+}
+
+/* primera fila: 4 */
+.patros-gallery .hex:nth-child(-n + 4) {
+  margin-top: 0;
+}
+
+/* segunda fila: empieza desplazada para efecto panal */
+.patros-gallery .hex:nth-child(5) {
+  grid-column: 2 / span 2;
 }

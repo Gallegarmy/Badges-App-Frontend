@@ -1,51 +1,73 @@
-<script src="scripts/app.js" defer></script>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canjear medalla - Badges App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="./styles/profilestyle.css" />
+    <script src="scripts/app.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Canjear Medalla</h1>
+    </header>
+    <main>
+      <p id="status" class="status-message" role="status"></p>
+    </main>
 
-<h2 id="status">Claim Badge</h2>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const status = document.getElementById("status");
 
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
+        const token = new URLSearchParams(location.search).get("token");
+        const auth = getToken();
 
-  const status = document.getElementById("status");
+        function sleep(ms) {
+          return new Promise((resolve) => setTimeout(resolve, ms));
+        }
 
-  const token = new URLSearchParams(location.search).get("token");
-  const auth = getToken();
+        if (!token) {
+          status.textContent = "Missing QR token.";
+          status.hidden = false;
+          return;
+        }
 
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+        if (!auth) {
+          status.textContent = "Please log in before claiming a badge.";
+          status.hidden = false;
+          return;
+        }
 
-  if (!token) {
-    status.textContent = "Missing QR token.";
-    return;
-  }
+        try {
+          const res = await fetch(API + "/qr/claim", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + auth,
+            },
+            body: JSON.stringify({ token }),
+          });
 
-  if (!auth) {
-    status.textContent = "Please log in before claiming a badge.";
-    return;
-  }
+          const data = await res.json();
 
-  try {
-    const res = await fetch(API + "/qr/claim", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + auth
-      },
-      body: JSON.stringify({ token })
-    });
+          if (!res.ok) throw new Error(data.error || "Claim failed");
 
-    const data = await res.json();
+          status.textContent = "Badge claimed!";
+          status.hidden = false;
 
-    if (!res.ok) throw new Error(data.error || "Claim failed");
-
-    status.textContent = "Badge claimed!";
-
-    await sleep(3000);
-    window.location.href = "profile.html";
-
-  } catch (err) {
-    status.textContent = err.message;
-  }
-
-});
-</script>
+          await sleep(3000);
+          window.location.href = "profile.html";
+        } catch (err) {
+          status.textContent = err.message;
+          status.hidden = false;
+        }
+      });
+    </script>
+  </body>
+</html>
