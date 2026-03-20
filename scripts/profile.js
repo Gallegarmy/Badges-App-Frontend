@@ -150,7 +150,7 @@ function renderSeparatedBadges(badges) {
 
   const comunidadesSection = createSection(
     "Comunidades",
-    "hexagon-gallery section-gallery",
+    "hexagon-gallery section-gallery comunidades-gallery",
     comunidadesBadges,
   );
   root.appendChild(comunidadesSection);

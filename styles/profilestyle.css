@@ -10,12 +10,8 @@
   --bg: #0c1525;
   --accent: #2276d2;
   --text: #d8eef5;
-  --text-muted: #4e6a7a;
   --hex-bg: #0f1a2e;
-
-  /* size control */
   --hex-width: 140px;
-  --hex-gap: 6px;
 }
 
 /* Body */
@@ -93,23 +89,11 @@ p {
   position: relative;
   grid-column: span 2;
   margin-top: calc(var(--hex-width) * -0.2887);
-
   background: var(--hex-bg);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-
   transition:
     transform 0.2s ease,
     filter 0.2s ease;
-}
-
-/* primera fila sin solape */
-.hex:nth-child(-n + 6) {
-  margin-top: 0;
-}
-
-/* inicio de filas desplazadas (patron 6/5) */
-.hex:nth-child(11n + 7) {
-  grid-column: 2 / span 2;
 }
 
 /* hover */
@@ -188,35 +172,16 @@ p {
   .hexagon-gallery {
     grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
   }
-
-  .hex:nth-child(-n + 5) {
-    margin-top: 0;
-  }
-
-  /* patron 5/4 */
-  .hex:nth-child(9n + 6) {
-    grid-column: 2 / span 2;
-  }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
   :root {
     --hex-width: 85px;
-    --hex-gap: 4px;
   }
 
   .hexagon-gallery {
     grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
-  }
-
-  .hex:nth-child(-n + 4) {
-    margin-top: 0;
-  }
-
-  /* patron 4/3 */
-  .hex:nth-child(7n + 5) {
-    grid-column: 2 / span 2;
   }
 
   .badge-section-title {
@@ -238,15 +203,6 @@ p {
     grid-template-columns: repeat(6, calc(var(--hex-width) / 2));
   }
 
-  .hex:nth-child(-n + 3) {
-    margin-top: 0;
-  }
-
-  /* patron 3/2 */
-  .hex:nth-child(5n + 4) {
-    grid-column: 2 / span 2;
-  }
-
   .badge-section-title {
     font-size: 1.1rem;
   }
@@ -256,7 +212,7 @@ p {
   }
 }
 
-/* Patros: 7 medallas en patron 4 + 3 (panal visible) */
+/* Patros: patron 4 + 3 */
 .patros-gallery {
   grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
   max-width: calc(var(--hex-width) * 4 + 40px);
@@ -274,9 +230,37 @@ p {
   margin-top: 0;
 }
 
-/* segunda fila: empieza desplazada para efecto panal */
+/* segunda fila: desplazada */
 .patros-gallery .hex:nth-child(5) {
   grid-column: 2 / span 2;
+}
+
+/* Comunidades: 12 medallas en patron 4 + 4 + 4 */
+.comunidades-gallery {
+  grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
+  max-width: calc(var(--hex-width) * 4 + 40px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comunidades-gallery .hex {
+  grid-column: span 2;
+  margin-top: calc(var(--hex-width) * -0.2887);
+}
+
+/* primera fila */
+.comunidades-gallery .hex:nth-child(-n + 4) {
+  margin-top: 0;
+}
+
+/* segunda fila desplazada */
+.comunidades-gallery .hex:nth-child(5) {
+  grid-column: 2 / span 2;
+}
+
+/* tercera fila vuelve alineada */
+.comunidades-gallery .hex:nth-child(9) {
+  grid-column: 1 / span 2;
 }
 
 .claim-container {
