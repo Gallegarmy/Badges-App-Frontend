@@ -1,148 +1,319 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
-    --bg:        #0C1525;
-    --accent:    #2276D2;
-    --text:      #D8EEF5;
-    --text-muted:#4E6A7A;
-    --hex-bg:    #0F1A2E;
-
-    /* size control */
-    --hex-width: 140px;
-    --hex-gap: 6px;
+  --bg: #0c1525;
+  --accent: #2276d2;
+  --text: #d8eef5;
+  --hex-bg: #0f1a2e;
+  --hex-width: 140px;
 }
 
-/* ── Body ───────────────── */
+/* Body */
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg);
-    background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(34,118,210,0.08) 0%, transparent 50%),
-        radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 100%, 28px 28px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Outfit", sans-serif;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(34, 118, 210, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size:
+    100%,
+    28px 28px;
 }
 
-/* ── Header ─────────────── */
+/* Header */
 .page-header {
-    width: 100%;
-    padding: 16px 10px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+  padding: 16px 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .page-header h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.12em;
-    color: var(--text);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.12em;
+  color: var(--text);
 }
 
-/* ── Main ───────────────── */
+/* Main */
 main {
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px 10px 30px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px 10px 30px;
 }
 
-/* ── Status ─────────────── */
+p {
+  width: 100%;
+  padding: 0 10px;
+}
+
+/* Status */
 .status-message {
-    text-align: center;
-    color: var(--text-muted);
-    margin-top: 20px;
+  text-align: center;
+  color: var(--text);
+  margin-top: 20px;
 }
 
-/* ── Honeycomb container ── */
+/* Honeycomb container */
 .hexagon-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(12, calc(var(--hex-width) / 2));
+  justify-content: center;
+  row-gap: 0;
+  margin-top: 20px;
+  max-width: 1000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
-/* ── Hexagon ────────────── */
+/* Hexagon */
 .hex {
-    width: var(--hex-width);
-    height: calc(var(--hex-width) * 1.1547); /* perfect hex ratio */
-    margin: calc(var(--hex-gap) / 2);
-    position: relative;
-
-    background: var(--hex-bg);
-
-    clip-path: polygon(
-        50% 0%, 
-        100% 25%, 
-        100% 75%, 
-        50% 100%, 
-        0% 75%, 
-        0% 25%
-    );
-
-    transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-/* 🔑 Tight interlocking rows */
-.hex:nth-child(odd) {
-    margin-top: calc(var(--hex-width) * -0.2887);
-}
-
-/* reset first row */
-.hex:nth-child(-n+6) {
-    margin-top: calc(var(--hex-gap) / 2);
+  width: var(--hex-width);
+  height: calc(var(--hex-width) * 1.1547);
+  position: relative;
+  grid-column: span 2;
+  margin-top: calc(var(--hex-width) * -0.2887);
+  background: var(--hex-bg);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
 /* hover */
 .hex:hover {
-    transform: scale(1.05);
-    filter: brightness(1.15);
-    z-index: 2;
+  transform: scale(1.05);
+  filter: brightness(1.15);
+  z-index: 2;
 }
 
 /* image */
 .hex img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    clip-path: inherit;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inherit;
 }
 
-/* ── Tablet ─────────────── */
+/* Estructura de secciones */
+.badges-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.badge-section {
+  width: 100%;
+}
+
+.badge-section-title {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+/* Otras medallas arriba */
+.single-row-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.single-row-gallery .hex {
+  margin-top: 0;
+}
+
+/* Separador LareiraConf */
+.lareiraconf-divider {
+  width: 100%;
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  font-size: 1.6rem;
+  padding: 10px 0 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-gallery {
+  margin-top: 8px;
+}
+
+/* Tablet */
 @media (max-width: 900px) {
-    :root {
-        --hex-width: 110px;
-    }
+  :root {
+    --hex-width: 110px;
+  }
 
-    .hex:nth-child(-n+5) {
-        margin-top: calc(var(--hex-gap) / 2);
-    }
+  .hexagon-gallery {
+    grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
+  }
 }
 
-/* ── Mobile ─────────────── */
+/* Mobile */
 @media (max-width: 600px) {
-    :root {
-        --hex-width: 85px;
-        --hex-gap: 4px;
-    }
+  :root {
+    --hex-width: 85px;
+  }
 
-    .hex:nth-child(-n+4) {
-        margin-top: calc(var(--hex-gap) / 2);
-    }
+  .hexagon-gallery {
+    grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
+  }
+
+  .badge-section-title {
+    font-size: 1.2rem;
+  }
+
+  .lareiraconf-divider {
+    font-size: 1.35rem;
+  }
 }
 
-/* ── Small phones ───────── */
+/* Small phones */
 @media (max-width: 400px) {
-    :root {
-        --hex-width: 70px;
-    }
+  :root {
+    --hex-width: 70px;
+  }
 
-    .hex:nth-child(-n+3) {
-        margin-top: calc(var(--hex-gap) / 2);
-    }
+  .hexagon-gallery {
+    grid-template-columns: repeat(6, calc(var(--hex-width) / 2));
+  }
+
+  .badge-section-title {
+    font-size: 1.1rem;
+  }
+
+  .lareiraconf-divider {
+    font-size: 1.2rem;
+  }
+}
+
+/* Patros: patron 5 + 4 */
+.patros-gallery {
+  grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
+  max-width: calc(var(--hex-width) * 5 + 40px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.patros-gallery .hex {
+  grid-column: span 2;
+  margin-top: calc(var(--hex-width) * -0.2887);
+}
+
+/* primera fila: 5 */
+.patros-gallery .hex:nth-child(-n + 5) {
+  margin-top: 0;
+}
+
+/* segunda fila: desplazada */
+.patros-gallery .hex:nth-child(6) {
+  grid-column: 2 / span 2;
+}
+
+/* Comunidades: 11 medallas en patron 4 + 4 + 3 */
+.comunidades-gallery {
+  grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
+  max-width: calc(var(--hex-width) * 5 + 40px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comunidades-gallery .hex {
+  grid-column: span 2;
+  margin-top: calc(var(--hex-width) * -0.2887);
+}
+
+/* primera fila */
+.comunidades-gallery .hex:nth-child(-n + 4) {
+  margin-top: 0;
+}
+
+/* segunda fila completa */
+.comunidades-gallery .hex:nth-child(5) {
+  grid-column: 2 / span 2;
+}
+
+/* tercera fila centrada (3 medallas) */
+.comunidades-gallery .hex:nth-child(9) {
+  grid-column: 3 / span 2;
+}
+
+.claim-container {
+  max-width: 520px;
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+.claim-container .status-message {
+  margin: 0 0 18px;
+}
+
+.claim-back-button {
+  width: min(100%, 280px);
+  padding: 12px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font:
+    600 0.9rem "Outfit",
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.claim-back-button:hover {
+  background: rgba(34, 118, 210, 0.18);
+  transform: translateY(-1px);
+}
+
+.claim-back-button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.lareira-status-message {
+  max-width: 760px;
+  margin: 14px auto 20px;
+  padding: 0 14px;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+@media (max-width: 600px) {
+  .lareira-status-message {
+    max-width: 100%;
+    padding: 0 10px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
 }

@@ -1,51 +1,79 @@
-<script src="scripts/app.js" defer></script>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canjear medalla - Badges App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="./styles/profilestyle.css" />
+    <script src="scripts/app.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Canjear Medalla</h1>
+    </header>
+    <main>
+      <div class="claim-container">
+        <p id="status" class="status-message" role="status"></p>
+        <button
+          id="backToProfile"
+          class="claim-back-button"
+          type="button"
+          hidden
+        >
+          Volver a Profile
+        </button>
+      </div>
+    </main>
 
-<h2 id="status">Claim Badge</h2>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const status = document.getElementById("status");
+        const backButton = document.getElementById("backToProfile");
 
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
+        const goToProfile = () => {
+          window.location.href = "profile.html";
+        };
 
-  const status = document.getElementById("status");
+        const showStatus = (message) => {
+          status.textContent = message;
+          status.hidden = false;
+          backButton.hidden = false;
+        };
 
-  const token = new URLSearchParams(location.search).get("token");
-  const auth = getToken();
+        backButton.addEventListener("click", goToProfile);
 
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+        const token = new URLSearchParams(location.search).get("token");
+        const auth = getToken();
 
-  if (!token) {
-    status.textContent = "Missing QR token.";
-    return;
-  }
+        if (!token) return showStatus("Missing QR token.");
+        if (!auth) return showStatus("Please log in before claiming a badge.");
 
-  if (!auth) {
-    status.textContent = "Please log in before claiming a badge.";
-    return;
-  }
+        try {
+          const res = await fetch(API + "/qr/claim", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + auth,
+            },
+            body: JSON.stringify({ token }),
+          });
 
-  try {
-    const res = await fetch(API + "/qr/claim", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + auth
-      },
-      body: JSON.stringify({ token })
-    });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Claim failed");
 
-    const data = await res.json();
-
-    if (!res.ok) throw new Error(data.error || "Claim failed");
-
-    status.textContent = "Badge claimed!";
-
-    await sleep(3000);
-    window.location.href = "profile.html";
-
-  } catch (err) {
-    status.textContent = err.message;
-  }
-
-});
-</script>
+          showStatus("Badge claimed!");
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          goToProfile();
+        } catch (err) {
+          showStatus(err instanceof Error ? err.message : "Unexpected error");
+        }
+      });
+    </script>
+  </body>
+</html>
