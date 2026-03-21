@@ -30,6 +30,8 @@ const OTHER_BADGE_IMAGE_HINTS = [
   "medalla aniversario 2026",
   "medalla sysarmy vigo febrero 2026",
   "febrero 2026 png",
+  "febrero26",
+  "python coruna 02 2026 jpg",
 ];
 
 const SPONSOR_BADGE_NAMES = new Set([
@@ -38,8 +40,10 @@ const SPONSOR_BADGE_NAMES = new Set([
   normalizeTextValue("Stand Dinahosting LareiraConf 2026"),
   normalizeTextValue("Stand Docuten LareiraConf 2026"),
   normalizeTextValue("Stand Gradiant LareiraConf 2026"),
+  normalizeTextValue("Stand Next Digital LareiraConf 2026"),
   normalizeTextValue("Stand Raiola LareiraConf 2026"),
   normalizeTextValue("Stand Wordpress LareiraConf 2026"),
+  normalizeTextValue("Stand NTT Data LareiraConf 2026"),
 ]);
 
 const SPONSOR_BADGE_IMAGE_HINTS = [
@@ -48,8 +52,10 @@ const SPONSOR_BADGE_IMAGE_HINTS = [
   "dinahosting",
   "docuten",
   "gradiant",
+  "next-digital",
   "raiola",
-  "wordpress",
+  "wordpress png",
+  "nttdata",
 ];
 
 function isOtherBadge(badge) {
@@ -158,6 +164,7 @@ function renderSeparatedBadges(badges) {
 
 async function loadBadges() {
   const token = getToken();
+  const statusEl = document.getElementById("badges-status");
   if (!token) {
     location.href = "login.html";
     return;
@@ -206,27 +213,28 @@ async function loadPatrosBadgesStatus() {
     const data = await res.json();
     const patros = data["patros-badge"];
     const comunidades = data["comunidades-badge"];
+    console.log("Patros badges:", patros, "Comunidades badges:", comunidades);
 
     if (patros === 0 && comunidades === 0) return;
 
-    if (patros < 7) {
+    if (patros < 9) {
       statusEl.textContent =
         "Has escaneado " +
         patros +
-        "/7 medallas, escanea las restantes para participar del sorteo LareiraConf 2026";
+        "/9 medallas, escanea las restantes para participar del sorteo LareiraConf 2026";
       statusEl.hidden = false;
       return;
     }
 
-    if (patros === 7 && comunidades < 12) {
+    if (patros === 9 && comunidades < 11) {
       statusEl.textContent = `Ya estas participando en el sorteo LareiraConf 2026.
       Escanea todas las medallas de comunidades para duplicar tus posibilidades.
-      Actualmente tienes ${comunidades}/12 medallas.`;
+      Actualmente tienes ${comunidades}/11 medallas.`;
       statusEl.hidden = false;
       return;
     }
 
-    if (patros === 7 && comunidades === 12) {
+    if (patros === 9 && comunidades === 11) {
       statusEl.textContent =
         "Ya estas participando en el sorteo LareiraConf 2026 con tus posibilidades duplicadas, gracias por escanear todas las medallas";
       statusEl.hidden = false;

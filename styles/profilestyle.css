@@ -212,10 +212,10 @@ p {
   }
 }
 
-/* Patros: patron 4 + 3 */
+/* Patros: patron 5 + 4 */
 .patros-gallery {
-  grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
-  max-width: calc(var(--hex-width) * 4 + 40px);
+  grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
+  max-width: calc(var(--hex-width) * 5 + 40px);
   margin-left: auto;
   margin-right: auto;
 }
@@ -225,20 +225,20 @@ p {
   margin-top: calc(var(--hex-width) * -0.2887);
 }
 
-/* primera fila: 4 */
-.patros-gallery .hex:nth-child(-n + 4) {
+/* primera fila: 5 */
+.patros-gallery .hex:nth-child(-n + 5) {
   margin-top: 0;
 }
 
 /* segunda fila: desplazada */
-.patros-gallery .hex:nth-child(5) {
+.patros-gallery .hex:nth-child(6) {
   grid-column: 2 / span 2;
 }
 
-/* Comunidades: 12 medallas en patron 4 + 4 + 4 */
+/* Comunidades: 11 medallas en patron 4 + 4 + 3 */
 .comunidades-gallery {
-  grid-template-columns: repeat(8, calc(var(--hex-width) / 2));
-  max-width: calc(var(--hex-width) * 4 + 40px);
+  grid-template-columns: repeat(10, calc(var(--hex-width) / 2));
+  max-width: calc(var(--hex-width) * 5 + 40px);
   margin-left: auto;
   margin-right: auto;
 }
@@ -253,14 +253,14 @@ p {
   margin-top: 0;
 }
 
-/* segunda fila desplazada */
+/* segunda fila completa */
 .comunidades-gallery .hex:nth-child(5) {
   grid-column: 2 / span 2;
 }
 
-/* tercera fila vuelve alineada */
+/* tercera fila centrada (3 medallas) */
 .comunidades-gallery .hex:nth-child(9) {
-  grid-column: 1 / span 2;
+  grid-column: 3 / span 2;
 }
 
 .claim-container {
