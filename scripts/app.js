@@ -1,4 +1,4 @@
-const API = "/api";
+const API = "https://badges.galicia.dev/api";
 const ERR_NETWORK = "Error de red. Por favor, comprueba tu conexión.";
 
 // ── Shared form helper ────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ async function postForm(endpoint, body, errorEl, onSuccess) {
 function saveToken(token) {
   const item = {
     token,
-    expiry: new Date().getTime() + 1800000,
+    expiry: new Date().getTime() + 10800000,
   };
   localStorage.setItem("token", JSON.stringify(item));
 }
