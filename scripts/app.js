@@ -1,4 +1,4 @@
-const API = "https://badges.galicia.dev/api";
+const API = "/api";
 const ERR_NETWORK = "Error de red. Por favor, comprueba tu conexión.";
 
 // ── Shared form helper ────────────────────────────────────────────────────────
