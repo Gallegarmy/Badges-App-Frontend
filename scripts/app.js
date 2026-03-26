@@ -27,7 +27,7 @@ async function postForm(endpoint, body, errorEl, onSuccess) {
 function saveToken(token) {
   const item = {
     token,
-    expiry: new Date().getTime() + 1800000,
+    expiry: new Date().getTime() + 10800000,
   };
   localStorage.setItem("token", JSON.stringify(item));
 }
