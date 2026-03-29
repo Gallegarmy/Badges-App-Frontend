@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!auth) {
     status.textContent = "Please log in before claiming a badge.";
-    return;
+    await sleep(1000);
+    window.location.href = `login?badge-token=${token}`;
   }
 
   try {
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     status.textContent = "Badge claimed!";
 
-    await sleep(3000);
+    await sleep(1000);
     window.location.href = "profile.html";
 
   } catch (err) {
