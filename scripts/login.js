@@ -26,17 +26,25 @@ document.getElementById("forgot-link").addEventListener("click", async (e) => {
 });
 
 document.getElementById("login-form").addEventListener("submit", (e) => {
+
+  const token = new URLSearchParams(location.search).get("badge-token");
+
   e.preventDefault();
-  postForm(
-    "/auth/login",
-    {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value,
-    },
-    document.getElementById("login-error"),
-    (data) => {
-      saveToken(data.token);
-      location.href = "profile.html";
-    }
-  );
+    postForm(
+      "/auth/login",
+      {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+      },
+      document.getElementById("login-error"),
+      (data) => {
+        saveToken(data.token);
+        if (!token) {
+          location.href = "profile.html";
+        } else {
+          location.href =`claim?token=${token}`;
+        }
+      }
+    );
+  
 });
