@@ -1,5 +1,16 @@
 document.getElementById("register-form").addEventListener("submit", (e) => {
   e.preventDefault();
+
+  const termsChecked = document.getElementById("termsCheckbox").checked;
+  const errorBox = document.getElementById("register-error");
+
+  if (!termsChecked) {
+    errorBox.textContent = "Debes aceptar los términos y condiciones para continuar.";
+    errorBox.hidden = false;
+    return; 
+  }
+
+
   postForm(
     "/auth/register",
     {

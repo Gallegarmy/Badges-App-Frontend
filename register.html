@@ -1,35 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro - Badges App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="./styles/registerstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="./styles/registerstyle.css" />
     <script src="scripts/app.js" defer></script>
     <script src="scripts/register.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="form-container">
-        <div class="form-header">
-<h2>Registro</h2>
+      <div class="form-header">
+        <h2>Registro</h2>
+      </div>
+      <form class="input-container" id="register-form" novalidate>
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Introduce tu correo electrónico"
+          autocomplete="email"
+          required
+        />
+
+        <label for="username">Usuario</label>
+        <input
+          id="username"
+          type="text"
+          placeholder="Elige un nombre de usuario"
+          autocomplete="username"
+          required
+        />
+
+        <label for="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Crea una contraseña"
+          autocomplete="new-password"
+          required
+        />
+        <div class="terms-row">
+          <label for="termsCheckbox">Acepto los <a href="https://www.sysarmy.gal/legal/aviso-legal.pdf">términos y condiciones</a></label>
+          <input type="checkbox" id="termsCheckbox" />
         </div>
-        <form class="input-container" id="register-form" novalidate>
-            <label for="email">Correo electrónico</label>
-            <input id="email" type="email" placeholder="Introduce tu correo electrónico" autocomplete="email" required>
-
-            <label for="username">Usuario</label>
-            <input id="username" type="text" placeholder="Elige un nombre de usuario" autocomplete="username" required>
-
-            <label for="password">Contraseña</label>
-            <input id="password" type="password" placeholder="Crea una contraseña" autocomplete="new-password" required>
-
-            <p id="register-error" class="error-message" role="alert" hidden></p>
-            <button class="submit" type="submit">Registrarse</button>
-        </form>
-        <p class="form-footer">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+        <p id="register-error" class="error-message" role="alert" hidden></p>
+        <button class="submit" type="submit">Registrarse</button>
+      </form>
+      <p class="form-footer">
+        ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+      </p>
     </div>
-</body>
+  </body>
 </html>
