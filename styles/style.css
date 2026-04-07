@@ -87,7 +87,7 @@ body {
 
 .input-container input {
     width: 100%;
-    padding: 13px 16px;
+    padding: 10px 10px;
     background: var(--input-bg);
     border: 1px solid var(--input-border);
     border-radius: var(--radius-input);
@@ -242,19 +242,16 @@ input::placeholder {
     position: relative;
 }
 
-/* Hover */
 .terms-row input[type="checkbox"]:hover {
     border-color: rgba(34, 118, 210, 0.25);
     background: rgba(255, 255, 255, 0.06);
 }
 
-/* Checked state */
 .terms-row input[type="checkbox"]:checked {
     background: var(--accent);
     border-color: var(--accent);
 }
 
-/* Checkmark */
 .terms-row input[type="checkbox"]::after {
     content: "";
     position: absolute;
